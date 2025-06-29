@@ -1,2 +1,3 @@
-# An-lise-de-Dados
-Códigos e arquivos de apoio das disciplinas da especialização online Pós-Graduação em Ciência de Dados e Analytics, do Departamento de Informática da PUC-Rio.
+# ciencia-de-dados-e-analytics-PUCRIO
+
+Códigos e arquivos de apoio para os MVP da Pós-Graduação em Ciência de Dados e Analytics - PUC-Rio.
