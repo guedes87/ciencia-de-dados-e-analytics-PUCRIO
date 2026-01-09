@@ -5,3 +5,5 @@ Códigos e arquivos de apoio para os MVP da Pós-Graduação em Ciência de Dado
 MVP Análise de Dados
 
 MVP Machine Learning & Analytics
+
+MVP Engenharia de Dados
