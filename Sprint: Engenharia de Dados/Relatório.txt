@@ -1,0 +1,140 @@
+MVP – Sprint Engenharia de Dados
+PUC-Rio | Pós-Graduação em Ciencia de Dados e Analytics
+Análise dos resultados do Brasileirão Séria A  (2013 – 2024)
+________________________________________
+1. Contexto e Objetivo do Projeto
+Apresentar a implementação prática de um MVP de Engenharia de Dados, cujo objetivo é analisar os resultados do Brasileirão Séria A (2013 – 2024), representadas pelas análises dos jogos, dividido pelas temporadas.
+O objetivo deste MVP é construir um pipeline de dados em nuvem capaz de coletar, transformar, armazenar e analisar dados do campeonato brasileiro da séria A, de modo a identificar relações de pontos para ser campeão até os times que são rebaixados, relação de máxima e mínima de gols feitos.
+O pipeline contempla todas as etapas executadas pela disciplina:
+•	Extração dos dados
+•	Transformação e validação
+•	Carga e persistência
+•	Análise e geração de insights
+
+Perguntas de Negócio
+Com base no objetivo definido, este MVP busca responder às seguintes perguntas:
+Pergunta 1: Qual a média de pontos para ser campeão?
+Pergunta 2: Qual a média de pontos para ser rebaixado?
+Pergunta 3: Qual time com maior número de títulos?
+Pergunta 4: Qual time com o maior número de gols marcados?
+Pergunta 5:  Qual time com o menor número de gols marcados?
+________________________________________
+2. Coleta de Dados
+Os dados utilizados neste MVP foram obtidos a partir do conjunto de dados Brazilian Football Dataset [2003 - 2024] público https://www.kaggle.com/datasets/victorhts/brasileiro-srie-a-resultados-2013-2023/data , disponibilizado na plataforma Kaggle.
+No Databricks, a coleta ocorre via leitura direta da tabela:
+%sql
+SELECT * 
+FROM brasileirao
+________________________________________
+3. Modelagem de Dados
+A modelagem dos dados deste MVP foi estruturada segundo o conceito de Data Lake, utilizando uma arquitetura em camadas (Medallion Architecture), composta pela camadas Bronze.
+Essa abordagem foi escolhida por permitir maior flexibilidade na ingestão dos dados brutos, suporte a análises exploratórias sem a necessidade imediata de um esquema dimensional rígido, como em um Data Warehouse tradicional.
+3.1 Arquitetura e Camadas do Pipeline
+•	Camada Bronze: responsável pelo armazenamento dos dados brutos, conforme obtidos da fonte original, sem alterações estruturais ou semânticas, garantindo fidelidade à origem dos dados.
+3.2 Catálogo de Dados
+O Catálogo de Dados descreve os principais atributos utilizados no MVP, incluindo seus domínios e características esperadas.
+Atributo	Descrição	Tipo	Domínio / Valores Esperados
+Season	Ano 	Int	(2003;2024]
+Place	Posição de classificação	Int	Inteiros de 1 a 20
+Team	Nome do time	String	Valores distintos:  27 
+Goals	Quantidade de Gols	int	Inteiros de 18 a 103
+
+3.3 Linhagem dos Dados
+A linhagem dos dados foi definida da seguinte forma:
+•	Origem: conjunto de dados público Brazilian Football Dataset [2003 - 2024], disponibilizado na plataforma Kaggle.
+•	Técnica de composição: Consolidação de dados esportivos oficiais mais o enriquecimento com informações de equipamentos esportivos.
+•	Destino: Data Warehouse corporativo acessado via Databricks.
+________________________________________
+4. Carga de Dados
+A etapa de carga de dados deste MVP corresponde ao processo de Extração, Transformação e Carga (ETL) dos dados no ambiente de nuvem, garantindo que os dados estejam corretamente persistidos e disponíveis para análise.
+Neste  dataset utilizado, não foi necessário a padronização, tratamento de valores ausentes ou a remoção 
+de inconsistências que poderiam comprometer a qualidade das análises.
+________________________________________
+5. Análise de Dados
+A etapa de análise deste MVP foi estruturada em duas partes complementares: a análise da qualidade dos dados e a solução do problema proposto, conforme definido nos objetivos e perguntas de negócio.
+Solução do Negócio :
+Pergunta 1: Qual a média de pontos para ser campeão?
+
+%sql
+df = spark.sql(
+    """
+    SELECT ROUND(AVG(points)) AS media_pontos_campeao
+    FROM brasileirao
+    WHERE place = 1
+    """
+)
+display(df)
+R: 79 pontos
+--------------------------------------------------------------------
+Pergunta 2: Qual a média de pontos para ser rebaixado?
+- Foi utilizado como base o primeiro time da zona de corte para o rebaixamento, o 17º da tabela.
+df = spark.sql(
+    """
+    SELECT ROUND(AVG(points)) AS media_pontos_rebaixado
+    FROM brasileirao
+    WHERE place = 17
+    """
+)
+display(df)
+
+R: 43 pontos
+--------------------------------------------------------------------
+Pergunta 3: Qual time com maior número de títulos?
+df = spark.sql(
+    """
+    SELECT team, COUNT(*) as Qtd_titulos 
+    FROM brasileirao
+    WHERE place = 1
+    GROUP BY team
+    ORDER BY Qtd_titulos DESC
+    """
+)
+display(df)
+
+--------------------------------------------------------------------
+Pergunta 4: Qual time com o maior número de gols marcados?
+df = spark.sql(
+    """
+    SELECT place, team, season, goals
+    FROM brasileirao
+    WHERE goals = (SELECT MAX(goals) FROM brasileirao)
+    """)
+display(df)
+
+--------------------------------------------------------------------
+Pergunta 5:  Qual time com o menor número de gols marcados?
+df = spark.sql(
+    """
+    SELECT place, team, season, goals
+    FROM brasileirao
+    WHERE goals = (SELECT MAX(goals) FROM brasileirao)
+    """)
+display(df)
+
+
+Como Executar o Projeto
+1.	Crie uma conta no Databricks Free Edition.
+2.	Faça upload do notebook .ipynb.
+3.	Carregue o arquivo CSV na área de dados.
+4.	Execute as células na ordem.
+5.	Explore os dados e os insights.
+________________________________________
+6.	Análise Final
+
+•	A média de pontos para ser campeão é de 78 pontos.
+•	A média de pontos para ser rebaixado é de 43 pontos, nesta análise foi utilizado como base o primeiro time da zona de corte para o rebaixamento, o 17º da tabela.
+•	Os times com mais títulos são o Corinthias e Palmeitas com 4 títulos do brasileirão.
+•	O time que mais fez gols no período analisado foi o Santos em 2004, com 103 gols marcados.
+•	Os times com a quantidade menos de gols marcados foram o Avaí e o Paraná, com 18 gols.
+________________________________________
+7.	Conclusão Geral
+
+O pipeline construído permitiu transformar dados brutos em insights claros, com qualidade, rastreabilidade e escalabilidade.
+
+A análise demosntra que até os dias atuais, a média de pontos para um time ser campeão ou fugir do rebaixamento, são bem próximos da realidade. 
+
+O pipeline construído garante:
+•	Escalabilidade
+•	Governança
+•	Reprodutibilidade
+•	Clareza analítica
