@@ -23,6 +23,15 @@ Abaixo estão os projetos de conclusão de cada módulo, focados em diferentes p
 * **Destaque:** Avaliação de métricas (Precisão, Recall e F1-Score).
 * **[Link para a pasta do projeto](./Machine%20Learning%20%26%20Analytics)**
 
+---
+
+## 🧠 Conhecimentos Adquiridos
+
+* Estatística Descritiva e Inferencial.
+* Visualização de Dados e Storytelling.
+* Modelagem Preditiva e Prescritiva.
+* Big Data e Processamento Distribuído.
+* Ética em Dados e LGPD.
 
 ### 3. MVP: Engenharia de Dados e Cloud ☁️
 * **Descrição:** [Ex: Criação de um pipeline de dados dos resultados do Brasileirão Séria A (2013 – 2024), armazenados no Data Lake com a Plataforma Databricks.]
