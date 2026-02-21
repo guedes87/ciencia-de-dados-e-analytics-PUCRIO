@@ -22,7 +22,7 @@ Abaixo estão os projetos de conclusão de cada módulo, focados em diferentes p
 * **Tecnologias:** Scikit-Learn, XGBoost, Engenharia de Atributos.
 * **Destaque:** Avaliação de métricas (Precisão, Recall e F1-Score).
 * **[Link para a pasta do projeto](./link-da-pastahttps://github.com/guedes87/ciencia-de-dados-e-analytics-PUCRIO/tree/Sprint-Engenharia-de-Dados/an%C3%A1lise%20de%20Dados)**
-* **./Machine%20Learning%20%26%20Analytics**
+
 
 ### 3. MVP: Engenharia de Dados e Cloud ☁️
 * **Descrição:** [Ex: Criação de um pipeline de dados dos resultados do Brasileirão Séria A (2013 – 2024), armazenados no Data Lake com a Plataforma Databricks.]
