@@ -14,7 +14,7 @@ Abaixo estão os projetos de conclusão de cada módulo, focados em diferentes p
 * **Descrição:** [Análise exploratória de um dataset de saúde pública utilizando Python e Pandas.]
 * **Tecnologias:** Python, Matplotlib, Seaborn, Pandas, NumPy, Missingno e Sklearn.
 * **Destaque:** Limpeza de dados (Data Cleaning), padronização e nomralização dos dados, tratamento de missings e extração de insights acionáveis.
-* * **[Link para a pasta do projeto](./an%C3%A1lise%20de%20Dados)**
+* **[Link para a pasta do projeto](./an%C3%A1lise%20de%20Dados)**
 
 
 ### 2. MVP: Machine Learning e Deep Learning 🤖
