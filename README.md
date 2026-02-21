@@ -21,7 +21,7 @@ Abaixo estão os projetos de conclusão de cada módulo, focados em diferentes p
 * **Descrição:** [Ex: Criação de um modelo preditivo para padrões reais de consumo de café, utilizando Random Forest e Regressão Logística.]
 * **Tecnologias:** Scikit-Learn, XGBoost, Engenharia de Atributos.
 * **Destaque:** Avaliação de métricas (Precisão, Recall e F1-Score).
-* **[Link para a pasta do projeto](./link-da-pastahttps://github.com/guedes87/ciencia-de-dados-e-analytics-PUCRIO/tree/Sprint-Engenharia-de-Dados/an%C3%A1lise%20de%20Dados)**
+* **[Link para a pasta do projeto](./an%C3%A1lise%20de%20Dados)**
 
 
 ### 3. MVP: Engenharia de Dados e Cloud ☁️
